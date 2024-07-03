@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+$mainThemeColor: #f9f7f5;
+$mainButtonColor: #fb812a;
+
+.deneme {
+    height: 1000px;
+    padding: 50px;
+    background-color: $mainThemeColor;
+}
+
+button {
+    background-color: $mainButtonColor;
+    padding: 50px;
+}
