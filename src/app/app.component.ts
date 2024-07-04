@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./Layouts/navbar/navbar.component";
 
 @Component({
@@ -8,7 +8,7 @@ import { NavbarComponent } from "./Layouts/navbar/navbar.component";
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [CommonModule, RouterOutlet, NavbarComponent]
+    imports: [CommonModule, RouterOutlet, NavbarComponent, RouterLink, RouterLinkActive]
 })
 export class AppComponent {
   title = 'travel-planner-frontend';
