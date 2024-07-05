@@ -1,1 +1,58 @@
-<p>login works!</p>
+<div class="container-lg main d-flex align-items-center justify-content-center">
+    <div class="login d-flex align-items-center justify-content-around">
+        <div class="mx-5 py-5">
+            <img src="assets/images/login-img.jpg" alt="aa">
+        </div>
+        <div class="sign-in-form forms mx-5 my-5 py-5" *ngIf="!isSignUp">
+            <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+                <h1>Travel Planner</h1>
+                <div class="input-fields my-4">
+                    <label for="email">E-Mail</label>
+                    <input type="text" formControlName="email" class="form-control my-1 pt-2" placeholder="example@mail.com">
+                </div>
+                <div class="input-fields my-4">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control my-1 pt-2">
+                </div>
+                
+                <div *ngIf="showErrorMessage" class="text-danger mt-2">User not found.</div>
+                <div class="input-fields">
+                    <button type="submit" class="">Login</button>
+                </div>
+            </form>
+
+            <p class="my-3">
+                Don't have an account? <span class="sign-up text-decoration-underline" (click)="changeIsSignUp()">Sign up</span>
+            </p>
+        </div>
+        
+        <div class="sign-up-form forms mx-5 my-5" *ngIf="isSignUp">
+            <form (ngSubmit)="onSignUp()" [formGroup]="signUpForm">
+                <h2>Welcome!</h2>
+                <div class="input-fields my-4">
+                    <label for="name">Name</label>
+                    <input type="text" formControlName="name" class="form-control my-1 pt-2" placeholder="John">
+                </div>
+                <div class="input-fields my-4">
+                    <label for="lastName">Last Name</label>
+                    <input type="lastName" formControlName="lastName" class="form-control my-1 pt-2" placeholder="Doe">
+                </div>
+                <div class="input-fields my-4">
+                    <label for="phoneNumber">Phone</label>
+                    <input type="phoneNumber" formControlName="phoneNumber" class="form-control my-1 pt-2" placeholder="5555555555">
+                </div>
+                <div class="input-fields my-4">
+                    <label for="email">E-Mail</label>
+                    <input type="text" formControlName="email" class="form-control my-1 pt-2" placeholder="example@mail.com">
+                </div>
+                <div class="input-fields my-4">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control my-1 pt-2">
+                </div>
+                <div class="input-fields">
+                    <button type="submit" class="">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

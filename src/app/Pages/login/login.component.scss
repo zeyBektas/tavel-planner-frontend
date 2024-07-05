@@ -1,0 +1,18 @@
+@import '../../../styles.scss';
+
+.login {
+    img {
+        width: 500px;
+        height: 500px;
+    }
+
+    .forms {
+        min-width: 300px;
+
+        .sign-up {
+            cursor: pointer;
+            color: $mainButtonColor;
+        }
+    }
+
+}
