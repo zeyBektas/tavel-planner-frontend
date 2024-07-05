@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthFacadeService } from '../../../façade/auth-facade.service';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
+  providers: [AuthFacadeService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -17,7 +19,7 @@ export class LoginComponent {
   isSignUp: boolean = false;
 
   loginForm = new FormGroup({
-    username: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, Validators.required),
   });
 
@@ -25,7 +27,7 @@ export class LoginComponent {
     name: new FormControl(null, Validators.required),
     lastName: new FormControl(null, Validators.required),
     phoneNumber: new FormControl(null, Validators.required),
-    username: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, Validators.required),
   })
 
@@ -39,15 +41,15 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
-    console.log('denemee');
-    
-    this.authFacadeService.onLogin();
-    // this.authFacadeService.error404Event.subscribe(() => {
-    //   this.showErrorMessage = true;
-    // });
-    
-    // this.showErrorMessage = false;
-    // await this.authFacadeService.onLogin(this.form.get('username')?.value, this.form.get('password')?.value);
+
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+  
+    if (typeof email === 'string' && typeof password === 'string') {
+      this.authFacadeService.onLogin(email, password);
+    } else {
+      console.error('Email or password is not a string.');
+    }   
   }
 
   changeIsSignUp() {
@@ -59,7 +61,7 @@ export class LoginComponent {
       return;
     }
     console.log('deneme sign up');
-    this.changeIsSignUp()
+    this.changeIsSignUp();
   }
 
 }
