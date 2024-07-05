@@ -1,0 +1,22 @@
+
+.split-view-container {
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 60px);
+  
+    div {
+      width: 50%;
+    }
+    .left-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .right-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 150px;
+    }
+}
