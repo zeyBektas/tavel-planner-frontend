@@ -12,6 +12,6 @@ export class AuthApiService {
   login(data: LoginRequest) {
     console.log('in api send post');
     console.log(data);
-    return this.api.post(`auth/login`, data);
+    return this.api.post(`user/login`, data);
   }
 }

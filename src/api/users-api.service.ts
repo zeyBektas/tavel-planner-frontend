@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { HttpParams } from '@angular/common/http';
+import { RegisterRequest } from '../models/request/register-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,9 @@ export class UsersApiService {
     }
 
     return this.api.get(`users`, params);
+  }
+
+  registerUser(user: RegisterRequest) {
+    return this.api.post(`user/register`, user);
   }
 }
