@@ -10,7 +10,7 @@ import { LoginResponse } from '../models/response/login-response.model';
 })
 export class AuthFacadeService {
 
-  onLoginSubscription!: Subscription;
+  private onLoginSubscription!: Subscription;
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this._isLoggedIn$.asObservable();
 
@@ -18,7 +18,7 @@ export class AuthFacadeService {
 
   async onLogin(email: string, password: string) {
 
-    this.onLoginSubscription = (await (this.authApi.login(<LoginRequest>{ username: email, password: password }))).subscribe({
+    this.onLoginSubscription = (await (this.authApi.login(<LoginRequest>{ email: email, password: password }))).subscribe({
       next: (loginResponse: any) => {
         console.log('responseee');
         console.log(loginResponse);

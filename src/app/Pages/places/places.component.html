@@ -1,1 +1,8 @@
 <p>places works!</p>
+
+<div class="main">
+    <div *ngFor="let place of mockData.Restaurant">
+        <img src="{{ place.imageUrl }}" alt="">
+        {{ place.place_name }}
+    </div>
+</div>
