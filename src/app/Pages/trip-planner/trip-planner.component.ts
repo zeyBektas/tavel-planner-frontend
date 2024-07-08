@@ -2,11 +2,13 @@ import { CommonModule, JsonPipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-trip-planner',
   standalone: true,
-  imports: [FormsModule, JsonPipe, NgbModule, NgClass, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, JsonPipe, NgbModule, NgClass, CommonModule, ReactiveFormsModule, MatFormFieldModule, MatDatepickerModule],
   templateUrl: './trip-planner.component.html',
   styleUrl: './trip-planner.component.scss',
 })
@@ -18,6 +20,8 @@ export class TripPlannerComponent {
     to: new FormControl(''),
     activities: new FormArray([]),
     numPeople: new FormControl(1),
+    startDate: new FormControl(),
+    endDate: new FormControl()
   });
 
   get numPeople() {
@@ -44,8 +48,18 @@ export class TripPlannerComponent {
     { name: 'Nature', imageUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADyUlEQVR4nO2aW4hNURjHf0YuhVzKZdTEyLURiTzILZfkVkopRFKTTKSkZDzgwS2lEclMKA/Mk2aQeFA8ICKU5EGMccttMO63maNV36nVtvdel73PGab519d0zvrOWt9/f5f1rbUH2pAYJbQClAJNwFr+cxLNQEb+/nNkGoBfwDPgJDA7RKdMI5GVZvk+L7CJ50yIHAc6yPhICacwvSYZD8MY4ChQB3wX/bd4oEwWMj21TIRUJvDIWvFy2LzOJPR4LvMgon433mPO2SGkvYi4Pr1MjBz28PIVw5xW8InntzGLPnDMu64x6yt5jQN8Kkx7Sc77gd99c1kYGBtBYAXQyXGuv8i4lMkFAQM+WfxmFHAWaIzxRDsfEq5VS0fvgAGPDfqDgA+GnHCuVGn0RR0CBlww6FdakHhBC6BXwIgdBv27FkQ20QIYETBiskE/Kqw+AdeBZbk2WFWQPcAr4AtwW57+Ks2YeqDAME/YxldDHrHLIiTWG+boF0HkfYjuQOCS/DXCVrm7eEEtOhXoJiF0BPiqGbQ5pGyqz/OBUzG91P0Qu+pkrM5kn4vyam3RzoGx7IaYfdK1QE8ZmwDc9PDkpcC4+hwJF+Vbmp4yLosirb+aq7Uuj4AK4LcFiRMheZUTjwRbiAPa2CzgouYlReyqhfFKHgKLDPalmiOHAgZ8lqSNQnmE4So/rgE7gSkW1S1VdInoh6oi9EcDP0P0N0qBaDGsjHi6KrGnhXTDN2S8QU58NVpr34MWxNWYGH8K9NF0N8j354D+2lnjjnx/VsJpHLBF9OrF47+lv1Kht13yMjWMtEhYlegdRf+elOngPjIAeCn6zy0LQQY4DwxLg0iF5YLVhsQt1ELOVRqBOUlIdJY4t12wKoLMYOCJJ4mMyJcknlnisWC1FmYKQ+UCL5OCHPMlctFzQbUn9ZU5HkpBOCkJvFh2caW3X/OgqmbF0o/tjSj3ah5nDDHcMZlELTpdjsBBTBId1fJEoThkTnXr6IzdKYRCs/RfKtF1dJPxdwYbgtdNb/A4f2dLZRqi2pmDwEQ5mM20vKBIjIUpkogT1W/lFOdyTOCjkPC6eLNFkeX5wVXUzeMZYLm0LDnHthSN/wGcBpZadL0laZIokAYuifHKm5eBdRGlNy/vF+d6Gt+kGR932Mrb+8VaRwKq090qm5cPdBKZtMgUxlzT6HJbTnpWZ+gY+L5fNKLc4skPJ11EeWSN74Tt5BiqT6h23X2yG+cSpYEc8SahMENr9LLGJ3rB4ohSCadEJBTmifF5vZppjf+n0oY28A/hDwK/Ec3nMwbFAAAAAElFTkSuQmCC', selected: false }
   ];
 
-  toggleSelection(category: { selected: boolean; }) {
+  toggleSelection(category: { name: string, selected: boolean; }) {
     category.selected = !category.selected;
+
+    const activites = this.tripPlannerForm.get('activities') as FormArray;
+    const categoryNameUpperCase = category.name.toUpperCase();
+
+    if(category.selected) {
+      activites.push(new FormControl(categoryNameUpperCase));
+    } else {
+      const index = activites.controls.findIndex(x => x.value === categoryNameUpperCase);
+      activites.removeAt(index);
+    }
   }
 
   rangeValue: number = 50;
