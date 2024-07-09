@@ -2,23 +2,22 @@
 <form class="trip-planner-container" [formGroup]="tripPlannerForm" (submit)="onSubmit()">
     <h1>Plan Your Next Trip</h1>
     <div class="select-container">
-        <p>From:</p>
         <select class="form-select" aria-label="Default select example" formControlName="from" name="from">
-            <option value="1">İstanbul</option>
-            <option value="2">Ankara</option>
-            <option value="3">Eskişehir</option>
+            <option value="From" disabled selected>From</option>
+            <option value="İstanbul">İstanbul</option>
+            <option value="Ankara">Ankara</option>
+            <option value="Eskişehir">Eskişehir</option>
         </select>
-        <p>To:</p>
         <select class="form-select" aria-label="Default select example" formControlName="to" name="to">
-            <option value="1">İzmir/Çeşme</option>
+            <option value="To" disabled selected>To</option>
+            <option value="İzmir/Çeşme">İzmir/Çeşme</option>
         </select>
     </div>
     <div>
-        <div>
-            <p>Select Dates:</p>
-            
-              <input type="date" formControlName="startDate">
-              <input type="date" formControlName="endDate">
+        <p>Select Dates:</p>
+        <div class="date-container">
+            <input type="date" formControlName="startDate">
+            <input type="date" formControlName="endDate">
         </div>
     </div>
     <div>
@@ -36,7 +35,41 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">How Many People are Going:</label>
-        <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter email" formControlName="numPeople">
+         <input type="number" class="form-control" formControlName="numPeople">
+    </div>
+    <div>
+        <div *ngFor="let people of people.controls; index as i" formArrayName="people" class="card">
+            <div class="card-body">
+                <div class="container my-4">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="input-fields" [formGroupName]="i">
+                                <input type="text" class="form-control my-1 pt-2" placeholder="Name" formControlName="name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-fields" [formGroupName]="i">
+                                <input type="text" class="form-control my-1 pt-2" placeholder="Surname" formControlName="surname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" [formGroupName]="i">
+                            <select class="form-select" aria-label="Default select example" name="gender" formControlName="gender">
+                                <option value="Gender" disabled selected>Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-fields" [formGroupName]="i">
+                                <input type="email" class="form-control my-1 pt-2" placeholder="Email" formControlName="email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="button-container">
         <button routerLink="/landing">Back</button>

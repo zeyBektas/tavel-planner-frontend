@@ -32,3 +32,15 @@
    transition: 1s;
    background-color: #fb812a; 
 }
+
+.date-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
