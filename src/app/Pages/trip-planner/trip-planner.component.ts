@@ -1,7 +1,7 @@
 import { CommonModule, JsonPipe, NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
@@ -15,29 +15,64 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 export class TripPlannerComponent {
 
+  getData: any;
+
+
   tripPlannerForm = new FormGroup({
-    from: new FormControl(''),
-    to: new FormControl(''),
+    from: new FormControl('From'),
+    to: new FormControl('To'),
     activities: new FormArray([]),
     numPeople: new FormControl(1),
     startDate: new FormControl(),
-    endDate: new FormControl()
+    endDate: new FormControl(),
+    people: new FormArray([
+      new FormGroup({
+        name: new FormControl(),
+        surname: new FormControl(),
+        gender: new FormControl(),
+        email: new FormControl(),
+      })
+    ]),
   });
 
-  get numPeople() {
-    return this.tripPlannerForm.get('numPeople')?.value;
+  people = this.tripPlannerForm.get('people') as FormArray;
+
+  ngOnInit() {
+    this.tripPlannerForm.get('numPeople')?.valueChanges.subscribe(value => {
+      this.adjustPeopleArray(value!);
+      this.getData = value;
+    });
+
+  }
+
+  adjustPeopleArray(numPeople: number) {
+    const peopleArray = this.people;
+    const currentPeople = peopleArray.length;
+
+    if (currentPeople < numPeople) {
+      for (let i = currentPeople; i < numPeople; i++) {
+        peopleArray.push(new FormGroup({
+          name: new FormControl(),
+          surname: new FormControl(),
+          gender: new FormControl(),
+          email: new FormControl(),
+        }));
+      }
+    } else {
+      for (let i = currentPeople; i > numPeople; i--) {
+        peopleArray.removeAt(i - 1);
+      }
+    }
   }
 
   onSubmit() {
     if (this.tripPlannerForm.valid) {
-        // Log the form values to console
-        console.log('Form values:', this.tripPlannerForm.value);
-        
-        // You can also send this data to a service or perform other actions as needed
+      console.log('Form values:', this.tripPlannerForm.value);
     } else {
-        console.error('Form is invalid.');
+      console.error('Form is invalid.');
     }
   }
+
 
   categories = [
     { name: 'Popular', imageUrl: 'https://img.icons8.com/material-rounded/24/star--v1.png', selected: false },
@@ -60,59 +95,5 @@ export class TripPlannerComponent {
       const index = activites.controls.findIndex(x => x.value === categoryNameUpperCase);
       activites.removeAt(index);
     }
-  }
-
-  rangeValue: number = 50;
-
-  calendar = inject(NgbCalendar);
-  formatter = inject(NgbDateParserFormatter);
-
-  hoveredDate: NgbDate | null = null;
-  fromDate: NgbDate | null = this.calendar.getToday();
-  toDate: NgbDate | null = this.calendar.getNext(
-    this.calendar.getToday(), 'd', 10);
-
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (
-      this.fromDate &&
-      !this.toDate &&
-      date &&
-      date.after(this.fromDate)
-    ) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
-  }
-
-  isHovered(date: NgbDate) {
-    return (
-      this.fromDate &&
-      !this.toDate &&
-      this.hoveredDate &&
-      date.after(this.fromDate) &&
-      date.before(this.hoveredDate)
-    );
-  }
-
-  isInside(date: NgbDate) {
-    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
-  }
-
-  isRange(date: NgbDate) {
-    return (
-      date.equals(this.fromDate) ||
-      (this.toDate && date.equals(this.toDate)) ||
-      this.isInside(date) ||
-      this.isHovered(date)
-    );
-  }
-
-  validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
-    const parsed = this.formatter.parse(input);
-    return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
   }
 }
