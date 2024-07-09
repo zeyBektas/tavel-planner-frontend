@@ -1,0 +1,16 @@
+.place-type {
+  background-color: #ffefdc;
+}
+
+.selected {
+  transition: 1s;
+  background-color: #fb812a;
+}
+
+.cards{
+    .card {
+        img {
+            height: 170px;
+        }
+    }
+}
