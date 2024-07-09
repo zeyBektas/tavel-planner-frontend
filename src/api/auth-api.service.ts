@@ -7,6 +7,7 @@ import { LoginRequest } from '../models/request/login-request.model';
 })
 export class AuthApiService {
 
+
   constructor(private api: ApiService) { }
 
   login(data: LoginRequest) {

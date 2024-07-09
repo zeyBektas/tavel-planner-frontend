@@ -23,7 +23,7 @@ export class AuthFacadeService {
         console.log('responseee');
         console.log(loginResponse);
         this._isLoggedIn$.next(true);
-        localStorage.setItem('userId', loginResponse.userId);
+        localStorage.setItem('userId', loginResponse.id);
         // localStorage.setItem('accessToken', loginResponse.accessToken);        
         // localStorage.setItem('refreshToken', loginResponse.refreshToken);
         this.router.navigateByUrl('/');

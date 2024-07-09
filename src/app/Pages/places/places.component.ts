@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Place } from '../../../models/response/places-response.model';
+import { ApiService } from '../../../api/api.service';
 
 @Component({
   selector: 'app-places',
@@ -8,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './places.component.html',
   styleUrl: './places.component.scss',
 })
-export class PlacesComponent {
+export class PlacesComponent implements OnInit {
   placeCategory: Array<string> = [
     'Hotel',
     'Restaurant',
@@ -18,56 +20,43 @@ export class PlacesComponent {
     'Entertainment',
   ];
 
-  constructor() {}
+  apiPlaces: any;
 
-  mockData = {
-    Restaurant: [
-      {
-        id: '1d71843d-3e20-48cb-9919-fdb7977a42df',
-        place_name: 'Mc Donalds',
-        latitude: 25.1972,
-        longitude: 55.2744,
-        imageUrl: 'https://example.com/burj_khalifa.jpg',
-        country: 'UAE',
-        city: 'İzmir',
-        district: 'Downtown Dubai',
-        duration: '1 hours',
-        price: 5000.0,
-        type: 'Restaurant',
-        tag: ['POPULAR', 'HISTORICAL'],
+  constructor(private api: ApiService) {}
+
+  ngOnInit(): void {
+    this.getDeneme();
+  }
+
+  async getDeneme() {
+    (await this.api.post(`plan/getPlacesByCityAndTags`, {
+      tags: ["HISTORICAL"],
+      city: "Ankara"
+    })).subscribe({
+      next: (response: any) => {
+        this.apiPlaces = this.addIsSelectedField(response);
       },
-    ],
-    Museum: [
-      {
-        id: 'b81fbaf8-2ee3-4224-8875-6b71aae0b210',
-        place_name: 'Saat Kulesi',
-        latitude: 25.1972,
-        longitude: 55.2744,
-        imageUrl: 'https://example.com/burj_khalifa.jpg',
-        country: 'UAE',
-        city: 'İzmir',
-        district: 'Downtown Dubai',
-        duration: '1 hours',
-        price: 15000.0,
-        type: 'Museum',
-        tag: ['POPULAR', 'HISTORICAL'],
+      error: (error) => {
+        console.log(error);
       },
-    ],
-    Hotel: [
-      {
-        id: '1b9407fe-3aaa-4532-8a40-15d09b822f8a',
-        place_name: 'Hilton',
-        latitude: 25.1972,
-        longitude: 55.2744,
-        imageUrl: 'https://example.com/burj_khalifa.jpg',
-        country: 'UAE',
-        city: 'İzmir',
-        district: 'Downtown Dubai',
-        duration: '1 hours',
-        price: 2000.0,
-        type: 'Hotel',
-        tag: ['POPULAR', 'HISTORICAL'],
-      },
-    ],
-  };
+      complete: () => {}
+    });
+  }
+
+  addIsSelectedField(data: any) {
+    const updatedData: any = {};
+    for (const category in data) {
+      if (data.hasOwnProperty(category)) {
+        updatedData[category] = data[category].map((place: Place) => ({
+          ...place,
+          isSelected: false
+        }));
+      }
+    }
+    return updatedData;
+  }
+
+  toggleSelection(place: Place) {
+    place.isSelected = !place.isSelected;
+  }
 }
