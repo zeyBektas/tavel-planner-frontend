@@ -6,8 +6,9 @@ import { Places } from '../models/response/places-response.model';
 })
 export class TripDetailStateService {
 
-  tripFilter: any;
-  filteredPlaces!: any;
+  private tripFilter: any;
+  private filteredPlaces!: any;
+  private latestRoute: any;
 
   constructor() { }
 
@@ -25,5 +26,13 @@ export class TripDetailStateService {
 
   getFilteredPlaces() {
     return this.filteredPlaces;
+  }
+
+  saveLatestRoute(latestRoute: any) {
+    this.latestRoute = latestRoute;
+  }
+
+  getLatestRoute() {
+    return this.latestRoute;
   }
 }
