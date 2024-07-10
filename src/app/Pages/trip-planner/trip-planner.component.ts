@@ -54,7 +54,6 @@ export class TripPlannerComponent {
   endDateMin!: string;
   endDateMax!: string;
 
-
   onStartDateChange() {
     const startDate = this.tripPlannerForm.get('startDate')!.value;
     if (startDate) {
@@ -103,7 +102,12 @@ export class TripPlannerComponent {
   }
 
   onSubmit() {
-    if (this.tripPlannerForm.valid) {
+
+    if(this.tripPlannerForm.invalid) {
+      alert("Please fill all the fields");
+      return;
+    }
+    else {
       console.log('Form values:', this.tripPlannerForm.value);
       const formValue = this.tripPlannerForm.value;
       this.placesFacade.saveTripFilter(formValue);
@@ -115,9 +119,7 @@ export class TripPlannerComponent {
         tags: formValue.activities!,
         participantNumber: formValue.people?.length!,
       });
-    } else {
-      console.error('Form is invalid.');
-    }
+    } 
   }
 
   categories = [

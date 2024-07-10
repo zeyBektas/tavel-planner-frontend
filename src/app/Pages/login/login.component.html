@@ -48,6 +48,9 @@
                 <div class="input-fields my-4">
                     <label for="password">Password</label>
                     <input type="password" formControlName="password" class="form-control my-1 pt-2">
+                    <div class="alert alert-danger" *ngIf="!signUpForm.get('password')!.valid && signUpForm.get('password')!.touched">
+                        Password should contain max 8 characters, at least 1 uppercase, 1 lowercase and 1 number and 1 special characters
+                    </div>
                 </div>
                 <div class="input-fields">
                     <button type="submit" class="">Sign Up</button>
