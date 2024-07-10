@@ -48,6 +48,7 @@ export class LoginComponent {
 
   onLogin() {
     if (this.loginForm.invalid) {
+      alert("Please fill all the fields!")
       return;
     }
 
@@ -67,6 +68,7 @@ export class LoginComponent {
 
   onSignUp() {
     if (this.loginForm.invalid) {
+      alert("Please fill all the fields!");
       return;
     }
     this.userFacade.registerUser(<RegisterRequest><unknown>this.signUpForm.value);

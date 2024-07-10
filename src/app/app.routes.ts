@@ -12,7 +12,10 @@ export const routes: Routes = [
     { path: '', component: LandingComponent },
     { path: 'login', component: LoginComponent },
     { path: 'landing', component: LandingComponent },
-    { path: 'trip-planner', component: TripPlannerComponent},
+    { path: 'trip-planner', component: TripPlannerComponent },
+    { path: 'all-trips', component: AllTripsComponent },
+    { path: 'payment', component: PaymentComponent },
+    { path: 'contact', component: ContactComponent },
     { path: 'places', component: PlacesComponent },
     { path: 'about-us', component: AboutUsComponent}
 ];

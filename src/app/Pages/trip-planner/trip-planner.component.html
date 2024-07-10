@@ -9,7 +9,7 @@
             <option value="Eskişehir">Eskişehir</option>
         </select>
         <select class="form-select" aria-label="Default select example" formControlName="to" name="to">
-            <option value="To" disabled selected>To</option>
+            <option value="" disabled selected>To</option>
             <option value="İzmir">İzmir</option>
             <option value="İstanbul">İstanbul</option>
             <option value="Ankara">Ankara</option>
@@ -18,8 +18,8 @@
     <div>
         <p>Select Dates:</p>
         <div class="date-container">
-            <input type="date" formControlName="startDate" [min]="minDate" (change)="onStartDateChange()">
-            <input type="date" formControlName="endDate" [min]="endDateMin" [max]="endDateMax">
+            <input class="form-select" type="date" formControlName="startDate" [min]="minDate" (change)="onStartDateChange()">
+            <input class="form-select" type="date" formControlName="endDate" [min]="endDateMin" [max]="endDateMax">
         </div>
     </div>
     <div>
