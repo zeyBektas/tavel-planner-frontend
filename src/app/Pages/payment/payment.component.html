@@ -1,0 +1,31 @@
+<div class="sign-in-form forms mx-5 my-5 py-5">
+    <form [formGroup]="paymentForm" (submit)="onSubmit()">
+        <h1>Payment</h1>
+        <div class="input-row">
+            <div class="input-fields my-4">
+                <label for="name">Name</label>
+                <input type="text" class="form-control my-1 pt-2" placeholder="name" formControlName="name">
+            </div>
+            <div class="input-fields my-4">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control my-1 pt-2" placeholder="surname" formControlName="surname">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-fields my-4">
+                <label for="card">Card No</label>
+                <input type="text" class="form-control my-1 pt-2" placeholder="3452678567897864" formControlName="cardNo" maxlength="16">
+            </div>
+            <div class="input-fields my-4">
+                <label for="cvv">CVV</label>
+                <input type="text" class="form-control my-1 pt-2" placeholder="433" formControlName="cvv" maxlength="3">
+            </div>
+        </div>
+        <div class="total-fields">
+            Total: 
+        </div>
+        <div class="total-fields">
+            <button type="submit" class="">Pay</button>
+        </div>
+    </form>
+</div>
