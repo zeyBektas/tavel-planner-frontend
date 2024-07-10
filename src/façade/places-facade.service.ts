@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { TripDetailStateService } from '../state/trip-detail-state.service';
 import { Router } from '@angular/router';
 import { RouteRequest } from '../models/request/route-request.model';
+import { RouteStateService } from '../state/route-state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,8 @@ export class PlacesFacadeService {
 
   constructor(
     private placesApi: PlacesApiService,
-    private tripDeatailState: TripDetailStateService,
+    private tripDetailState: TripDetailStateService,
+    private routeState: RouteStateService,
     private router: Router
   ) {}
 
@@ -26,7 +28,7 @@ export class PlacesFacadeService {
       await this.placesApi.postFilterGetPlaces(data)
     ).subscribe({
       next: (places: any) => {
-        this.tripDeatailState.saveFilteredPlaces(places);
+        this.tripDetailState.saveFilteredPlaces(places);
         this.router.navigateByUrl('places');
       },
       error: (error) => {
@@ -62,7 +64,7 @@ export class PlacesFacadeService {
       next: (route: any) => {
         console.log('routeIDddd');
         console.log(route);
-        this.tripDeatailState.saveLatestRoute(route);
+        this.routeState.saveLatestRoute(route);
 
         this.router.navigateByUrl('payment');
       },
@@ -70,24 +72,24 @@ export class PlacesFacadeService {
         console.log(error);
       },
       complete: () => {
-        this.postFilterSubscription?.unsubscribe();
+        this.postRouteSubscription?.unsubscribe();
       },
     });
   }
 
   saveTripFilter(tripFilter: any) {
-    this.tripDeatailState.saveTripFilter(tripFilter);
+    this.tripDetailState.saveTripFilter(tripFilter);
   }
 
   getTripFilter(): any {
-    return this.tripDeatailState.getTripFilter();
+    return this.tripDetailState.getTripFilter();
   }
 
   getFilteredPlaces(): any {
-    return this.tripDeatailState.getFilteredPlaces();
+    return this.tripDetailState.getFilteredPlaces();
   }
 
   getLatestRoute(): any {
-    return this.tripDeatailState.getLatestRoute();
+    return this.routeState.getLatestRoute();
   }
 }
