@@ -69,7 +69,6 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
-    console.log(this.signUpForm.value);
     this.userFacade.registerUser(<RegisterRequest><unknown>this.signUpForm.value);
     this.changeIsSignUp();
   }

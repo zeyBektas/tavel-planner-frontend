@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Place, Places } from '../../../models/response/places-response.model';
+import { PlacesFacadeService } from '../../../façade/places-facade.service';
 
 @Component({
   selector: 'app-places',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './places.component.html',
-  styleUrl: './places.component.scss',
+  styleUrls: ['./places.component.scss'],
 })
-export class PlacesComponent {
-  placeCategory: Array<string> = [
+export class PlacesComponent implements OnInit {
+  placeCategory: Array<keyof Places> = [
     'Hotel',
     'Restaurant',
     'Museum',
@@ -18,56 +20,81 @@ export class PlacesComponent {
     'Entertainment',
   ];
 
-  constructor() {}
-
-  mockData = {
-    Restaurant: [
-      {
-        id: '1d71843d-3e20-48cb-9919-fdb7977a42df',
-        place_name: 'Mc Donalds',
-        latitude: 25.1972,
-        longitude: 55.2744,
-        imageUrl: 'https://example.com/burj_khalifa.jpg',
-        country: 'UAE',
-        city: 'İzmir',
-        district: 'Downtown Dubai',
-        duration: '1 hours',
-        price: 5000.0,
-        type: 'Restaurant',
-        tag: ['POPULAR', 'HISTORICAL'],
-      },
-    ],
-    Museum: [
-      {
-        id: 'b81fbaf8-2ee3-4224-8875-6b71aae0b210',
-        place_name: 'Saat Kulesi',
-        latitude: 25.1972,
-        longitude: 55.2744,
-        imageUrl: 'https://example.com/burj_khalifa.jpg',
-        country: 'UAE',
-        city: 'İzmir',
-        district: 'Downtown Dubai',
-        duration: '1 hours',
-        price: 15000.0,
-        type: 'Museum',
-        tag: ['POPULAR', 'HISTORICAL'],
-      },
-    ],
-    Hotel: [
-      {
-        id: '1b9407fe-3aaa-4532-8a40-15d09b822f8a',
-        place_name: 'Hilton',
-        latitude: 25.1972,
-        longitude: 55.2744,
-        imageUrl: 'https://example.com/burj_khalifa.jpg',
-        country: 'UAE',
-        city: 'İzmir',
-        district: 'Downtown Dubai',
-        duration: '1 hours',
-        price: 2000.0,
-        type: 'Hotel',
-        tag: ['POPULAR', 'HISTORICAL'],
-      },
-    ],
+  filteredPlaces: Places = {
+    Restaurant: [],
+    Museum: [],
+    Hotel: [],
+    Beach: [],
+    Trekking: [],
+    Entertainment: [],
   };
+
+  totalPrice: number = 0;
+
+  constructor(private placesFacade: PlacesFacadeService) {}
+
+  ngOnInit(): void {
+    this.getFilteredPlaces();
+  }
+
+  getFilteredPlaces() {
+    this.filteredPlaces = this.placesFacade.getFilteredPlaces();
+  }
+
+  toggleSelection(place: Place) {
+    place.isSelected = !place.isSelected;
+    this.updateTotalPrice();
+  }
+
+  confirmTrip() {
+    const selectedPlaces = this.getSelectedPlaces();
+    const selectedPlaceIds = this.getSelectedPlaceIds();
+    this.placesFacade.saveRoute(selectedPlaceIds);
+  }
+
+  getSelectedPlaces(): Places {
+    const selectedPlaces: Places = {
+      Restaurant: [],
+      Museum: [],
+      Hotel: [],
+      Beach: [],
+      Trekking: [],
+      Entertainment: [],
+    };
+    for (const category of this.placeCategory) {
+      if (this.filteredPlaces[category]) {
+        selectedPlaces[category] = this.filteredPlaces[category].filter(
+          (place: Place) => place.isSelected
+        );
+      }
+    }
+    return selectedPlaces;
+  }
+
+  getSelectedPlaceIds(): string[] {
+    const selectedPlaceIds: string[] = [];
+    for (const category of this.placeCategory) {
+      if (this.filteredPlaces[category]) {
+        this.filteredPlaces[category].forEach((place: Place) => {
+          if (place.isSelected) {
+            selectedPlaceIds.push(place.id);
+          }
+        });
+      }
+    }
+    return selectedPlaceIds;
+  }
+
+  updateTotalPrice() {
+    this.totalPrice = 0;
+    for (const category of this.placeCategory) {
+      if (this.filteredPlaces[category]) {
+        this.filteredPlaces[category].forEach((place: Place) => {
+          if (place.isSelected) {
+            this.totalPrice += place.price;
+          }
+        });
+      }
+    }
+  }
 }

@@ -1,8 +1,86 @@
-<p>places works!</p>
-
 <div class="main">
-    <div *ngFor="let place of mockData.Restaurant">
-        <img src="{{ place.imageUrl }}" alt="">
-        {{ place.place_name }}
+  <div class="places">
+    <div class="place-category">
+      <h2 class="place-type px-4 py-2 border display-6">Hotels</h2>
+      <div class="cards d-flex">
+        <div
+          class="card mx-3 my-3"
+          style="width: 18rem"
+          *ngFor="let place of filteredPlaces.Hotel"
+          (click)="toggleSelection(place)"
+          [ngClass]="{ selected: place.isSelected }"
+        >
+          <img
+            [src]="place.imageUrl"
+            class="card-img-top"
+            alt="{{ place.place_name }}"
+          />
+          <div class="card-body">
+            <div class="card-text d-flex justify-content-between">
+              <div>{{ place.place_name }}</div>
+              <div>{{ place.price | currency }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="place-category">
+      <h2 class="place-type px-4 py-2 border display-6">Restaurants</h2>
+      <div class="cards d-flex">
+        <div
+          class="card mx-3 my-3"
+          style="width: 18rem"
+          *ngFor="let place of filteredPlaces.Restaurant"
+          (click)="toggleSelection(place)"
+          [ngClass]="{ selected: place.isSelected }"
+        >
+          <img
+            src="https://images.inc.com/uploaded_files/image/1920x1080/getty_84709618_120601.jpg"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <div class="card-text d-flex justify-content-between">
+              <div>{{ place.place_name }}</div>
+              <div>{{ place.price | currency }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="place-category">
+      <h2 class="place-type px-4 py-2 border display-6">Museum</h2>
+      <div class="cards d-flex">
+        <div
+          class="card mx-3 my-3"
+          style="width: 18rem"
+          *ngFor="let place of filteredPlaces.Museum"
+          (click)="toggleSelection(place)"
+          [ngClass]="{ selected: place.isSelected }"
+        >
+          <img
+            src="https://media-cdn.tripadvisor.com/media/photo-s/1b/db/cb/76/levent-otel-dis-cephesi.jpg"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <div class="card-text d-flex justify-content-between">
+              <div>{{ place.place_name }}</div>
+              <div>{{ place.price | currency }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end py-5 mx-5">
+    <div>
+
+      <div class="py-3 fs-5 text">Total price: {{ totalPrice | currency }}</div>
+      <div class="d-flex justify-content-end">
+
+        <button (click)="confirmTrip()">Buy</button>
+      </div>
+    </div>
+  </div>
 </div>

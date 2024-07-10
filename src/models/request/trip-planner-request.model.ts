@@ -1,11 +1,8 @@
 export interface TripPlannerRequest {
-    id: string,
-    userId: string,
-    userLocation: string,
-    routeLocation: string,
-    price: number,
+    departure: string,
+    destination: string,
     startDate: string,
     endDate: string,
-    places: [],
-    statusFlag: number,
+    tags: string[],
+    participantNumber: number
 }

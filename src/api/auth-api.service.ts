@@ -7,11 +7,10 @@ import { LoginRequest } from '../models/request/login-request.model';
 })
 export class AuthApiService {
 
+
   constructor(private api: ApiService) { }
 
   login(data: LoginRequest) {
-    console.log('in api send post');
-    console.log(data);
     return this.api.post(`user/login`, data);
   }
 }
