@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -8,7 +8,13 @@ import { Component } from '@angular/core';
   templateUrl: './all-trips.component.html',
   styleUrl: './all-trips.component.scss'
 })
-export class AllTripsComponent {
+export class AllTripsComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+    
+  }
 
   openPopup() {
     alert("Popup");

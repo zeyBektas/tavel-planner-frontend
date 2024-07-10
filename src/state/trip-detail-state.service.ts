@@ -8,7 +8,6 @@ export class TripDetailStateService {
 
   private tripFilter: any;
   private filteredPlaces!: any;
-  private latestRoute: any;
 
   constructor() { }
 
@@ -28,11 +27,5 @@ export class TripDetailStateService {
     return this.filteredPlaces;
   }
 
-  saveLatestRoute(latestRoute: any) {
-    this.latestRoute = latestRoute;
-  }
 
-  getLatestRoute() {
-    return this.latestRoute;
-  }
 }
