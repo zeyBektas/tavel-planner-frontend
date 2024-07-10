@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -35,7 +36,7 @@ export class LoginComponent {
     surname: new FormControl(null, Validators.required),
     phoneNumber: new FormControl(null, Validators.required),
     email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, Validators.required),
+    password: new FormControl(null, [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{1,8}')]),
     routes: new FormControl([]),
     paymentMethods: new FormControl([]),
     role: new FormControl('user'),
@@ -68,7 +69,6 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
-    console.log(this.signUpForm.value);
     this.userFacade.registerUser(<RegisterRequest><unknown>this.signUpForm.value);
     this.changeIsSignUp();
   }
