@@ -20,6 +20,8 @@ export class PlacesFacadeService {
   ) {}
 
   async postFilterGetPlaces(data: TripPlannerRequest) {
+    console.log('sende da');
+    console.log(data);
     this.postFilterSubscription = (
       await this.placesApi.postFilterGetPlaces(data)
     ).subscribe({
@@ -38,22 +40,31 @@ export class PlacesFacadeService {
 
   async saveRoute(selectedPlacesIds: string[]) {
     const tripFilter = this.getTripFilter();
+    console.log('trip filter');
+    console.log(tripFilter);
     const routeRequest: RouteRequest = {
       userId: localStorage.getItem('userId') || '',
-      userLocation: tripFilter.departure,
-      routeLocation: tripFilter.destination,
+      departure: tripFilter.from,
+      destination: tripFilter.to,
       price: 0,
       startDate: tripFilter.startDate,
       endDate: tripFilter.endDate,
       places: selectedPlacesIds,
       participants: tripFilter.people,
     };
+
+    console.log('en son');
+    console.log(routeRequest);
+
     this.postRouteSubscription = (
       await this.placesApi.saveRoute(routeRequest)
     ).subscribe({
-      next: (routeId: any) => {
+      next: (route: any) => {
         console.log('routeIDddd');
-        console.log(routeId);
+        console.log(route);
+        this.tripDeatailState.saveLatestRoute(route);
+
+        this.router.navigateByUrl('payment');
       },
       error: (error) => {
         console.log(error);
@@ -74,5 +85,9 @@ export class PlacesFacadeService {
 
   getFilteredPlaces(): any {
     return this.tripDeatailState.getFilteredPlaces();
+  }
+
+  getLatestRoute(): any {
+    return this.tripDeatailState.getLatestRoute();
   }
 }

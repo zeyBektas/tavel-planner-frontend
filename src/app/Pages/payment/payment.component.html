@@ -20,9 +20,16 @@
                 <label for="cvv">CVV</label>
                 <input type="text" class="form-control my-1 pt-2" placeholder="433" formControlName="cvv" maxlength="3">
             </div>
+            <div class="input-fields my-4">
+                <label for="expirationDate">Expiration Date</label>
+                <input type="text" class="form-control my-1 pt-2" placeholder="10/10" formControlName="expirationDate" maxlength="5">
+            </div>
         </div>
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
         <div class="total-fields">
-            Total: 
+            Total: {{ route.price }}
         </div>
         <div class="total-fields">
             <button type="submit" class="">Pay</button>

@@ -1,7 +1,7 @@
 export interface RouteRequest {
   userId: string;
-  userLocation: string;
-  routeLocation: string;
+  departure: string;
+  destination: string;
   price: number;
   startDate: string;
   endDate: string;
