@@ -110,8 +110,8 @@ export class TripPlannerComponent {
       this.placesFacade.postFilterGetPlaces({
         departure: formValue.from!,
         destination: formValue.to!,
-        startDate: formValue.startDate,
-        endDate: formValue.endDate,
+        startDate: formValue.startDate!,
+        endDate: formValue.endDate!,
         tags: formValue.activities!,
         participantNumber: formValue.people?.length!,
       });
