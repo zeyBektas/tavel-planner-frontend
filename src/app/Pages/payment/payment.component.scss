@@ -1,0 +1,14 @@
+
+.input-row {
+    display: flex;
+    gap: 20px; /* İki input alanı arasındaki boşluk */
+}
+
+.input-fields {
+    flex: 1; /* Eşit genişlikte olmaları için */
+}
+
+.total-fields {
+    display: flex;
+    justify-content: end;
+}

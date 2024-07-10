@@ -1,6 +1,6 @@
 import { CommonModule, JsonPipe, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -19,21 +19,44 @@ export class TripPlannerComponent {
 
 
   tripPlannerForm = new FormGroup({
-    from: new FormControl('From'),
-    to: new FormControl('To'),
-    activities: new FormArray([]),
-    numPeople: new FormControl(1),
-    startDate: new FormControl(),
-    endDate: new FormControl(),
+    from: new FormControl('', Validators.required),
+    to: new FormControl('', Validators.required),
+    activities: new FormArray([], Validators.required),
+    numPeople: new FormControl(1, Validators.required),
+    startDate: new FormControl(null, Validators.required),
+    endDate: new FormControl(null, Validators.required),
     people: new FormArray([
       new FormGroup({
-        name: new FormControl(),
-        surname: new FormControl(),
-        gender: new FormControl(),
-        email: new FormControl(),
+        name: new FormControl(null, Validators.required),
+        surname: new FormControl(null, Validators.required),
+        gender: new FormControl('', Validators.required),
+        email: new FormControl(null, Validators.required),
       })
     ]),
   });
+
+  today = new Date();
+  day = String(this.today.getDate()).padStart(2, '0');
+  month = String(this.today.getMonth() + 1).padStart(2, '0');
+  year = this.today.getFullYear();
+  minDate = `${this.year}-${this.month}-${this.day}`;
+  endDateMin!: string;
+  endDateMax!: string;
+
+
+  onStartDateChange() {
+    const startDate = this.tripPlannerForm.get('startDate')!.value;
+    if (startDate) {
+      this.endDateMin = startDate;
+      const startDateObj = new Date(startDate);
+      const endDateMaxObj = new Date(startDateObj);
+      endDateMaxObj.setDate(startDateObj.getDate() + 15);
+      this.endDateMax = endDateMaxObj.toISOString().split('T')[0];
+    } else {
+      this.endDateMin = this.minDate;
+      this.endDateMax = '';
+    }
+  }
 
   people = this.tripPlannerForm.get('people') as FormArray;
 
