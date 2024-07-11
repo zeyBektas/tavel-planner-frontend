@@ -1,75 +1,68 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, TemplateRef } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PlacesFacadeService } from '../../../façade/places-facade.service';
-import { PlaceRequest } from '../../../models/request/place-request.model';
 
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,],
   templateUrl: './admin-panel.component.html',
-  styleUrls: ['./admin-panel.component.scss'],
+  styleUrl: './admin-panel.component.scss'
 })
 export class AdminPanelComponent {
-  adminForm = new FormGroup({
-    place_name: new FormControl(null, Validators.required),
-    latitude: new FormControl(null, Validators.required),
-    longitude: new FormControl(null, Validators.required),
-    imageUrl: new FormControl(null, Validators.required),
-    country: new FormControl(null, Validators.required),
-    city: new FormControl(null, Validators.required),
-    district: new FormControl(null, Validators.required),
-    duration: new FormControl(null, Validators.required),
-    price: new FormControl(null, Validators.required),
-    type: new FormControl(null, Validators.required),
-    tag: new FormControl('', Validators.required),
-    isVegan: new FormControl('', Validators.required),
-    popularityRate: new FormControl(0),
-  });
 
+	adminForm = new FormGroup({
+		place_name: new FormControl(null, Validators.required),
+		latitude: new FormControl(null, Validators.required),
+		longitude: new FormControl(null, Validators.required),
+		imageUrl: new FormControl(null, Validators.required),
+		country: new FormControl(null, Validators.required),
+		city: new FormControl(null, Validators.required),
+		district: new FormControl(null, Validators.required),
+		duration: new FormControl(null, Validators.required),
+		price: new FormControl(null, Validators.required),
+		type: new FormControl(null, Validators.required),
+		tag: new FormControl('', Validators.required),
+		isVegan: new FormControl('', Validators.required),
+	});
+  
   successMessage: string | null = null;
 
-  constructor(private placesFacade: PlacesFacadeService) {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   openPopup() {
-    alert('Popup');
+    alert("Popup");
   }
 
   private modalService = inject(NgbModal);
-  closeResult = '';
+	closeResult = '';
 
-  open(content: TemplateRef<any>) {
-    this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result: any) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason: any) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-  }
+	open(content: TemplateRef<any>) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+			(result: any) => {
+				this.closeResult = `Closed with: ${result}`;
+			},
+			(reason: any) => {
+				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+			},
+		);
+	}
 
-  private getDismissReason(reason: any): string {
-    switch (reason) {
-      case ModalDismissReasons.ESC:
-        return 'by pressing ESC';
-      case ModalDismissReasons.BACKDROP_CLICK:
-        return 'by clicking on a backdrop';
-      default:
-        return `with: ${reason}`;
-    }
-  }
+	private getDismissReason(reason: any): string {
+		switch (reason) {
+			case ModalDismissReasons.ESC:
+				return 'by pressing ESC';
+			case ModalDismissReasons.BACKDROP_CLICK:
+				return 'by clicking on a backdrop';
+			default:
+				return `with: ${reason}`;
+		}
+	}
 
   onSubmit() {
     if (this.adminForm.valid) {
