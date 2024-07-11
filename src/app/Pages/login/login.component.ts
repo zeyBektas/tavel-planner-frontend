@@ -36,7 +36,7 @@ export class LoginComponent {
     surname: new FormControl(null, Validators.required),
     phoneNumber: new FormControl(null, Validators.required),
     email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{1,8}')]),
+    password: new FormControl(null, [Validators.required]),
     routes: new FormControl([]),
     paymentMethods: new FormControl([]),
     role: new FormControl('user'),
@@ -67,7 +67,7 @@ export class LoginComponent {
   }
 
   onSignUp() {
-    if (this.loginForm.invalid) {
+    if (this.signUpForm.invalid) {
       alert("Please fill all the fields!");
       return;
     }

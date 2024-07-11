@@ -63,6 +63,7 @@ export class AdminPanelComponent {
 	}
 
 	onSubmit() {
+		console.log(this.adminForm)
 		if (this.adminForm.valid) {
 		  const formData = this.adminForm.value;
 		  console.log('Form data:', formData);
