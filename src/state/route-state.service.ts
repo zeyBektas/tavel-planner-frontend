@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class RouteStateService {
   
   private latestRoute: any;
+  private allRoutes: any;
 
   constructor() { }
 
@@ -15,5 +16,13 @@ export class RouteStateService {
 
   getLatestRoute() {
     return this.latestRoute;
+  }
+
+  saveAllRoutes(allRoutes: any ) {
+    this.allRoutes = allRoutes;
+  }
+
+  getAllRoutes() {
+    return this.allRoutes;
   }
 }
