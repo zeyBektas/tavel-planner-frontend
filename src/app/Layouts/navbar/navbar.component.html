@@ -3,39 +3,44 @@
         <div class="float-start">
             <a class="navbar-brand" routerLink="/">Travel Planner</a>
         </div>
-      <div class="menu-wrapper">
-        <ul class="menu-list">
-            <li class="menu-item">
-                <a href="#">
-                    Home
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="/trip-planner">
-                    Plan Your Trip
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="/all-trips">
-                    All Trips
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="/about-us">
-                    About Us
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="/contact">
-                    Contact
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="/login">
-                    Login
-                </a>
-            </li>
-        </ul>
-      </div>
+        <div class="menu-wrapper">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a routerLink="/">
+                        Home
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a routerLink="/trip-planner">
+                        Plan Your Trip
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a routerLink="/all-trips">
+                        All Trips
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a routerLink="/about-us">
+                        About Us
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a routerLink="/contact">
+                        Contact
+                    </a>
+                </li>
+                <li class="menu-item" *ngIf="isLoggedIn">
+                    <a routerLink="/login" (click)="login()">
+                        Login
+                    </a>
+                </li>
+                <li class="menu-item" *ngIf="!isLoggedIn">
+                    <a (click)="logout()" routerLink="/landing">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
