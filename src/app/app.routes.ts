@@ -7,6 +7,8 @@ import { AboutUsComponent} from './Pages/about-us/about-us.component';
 import { AllTripsComponent } from './Pages/all-trips/all-trips.component';
 import { PaymentComponent } from './Pages/payment/payment.component';
 import { ContactComponent } from './Pages/contact/contact-page/contact.component';
+import { PlanComponent } from './Pages/plan/plan.component';
+import { AdminPanelComponent } from './Pages/admin-panel/admin-panel.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -17,5 +19,7 @@ export const routes: Routes = [
     { path: 'payment', component: PaymentComponent },
     { path: 'contact', component: ContactComponent },
     { path: 'places', component: PlacesComponent },
-    { path: 'about-us', component: AboutUsComponent}
+    { path: 'about-us', component: AboutUsComponent},
+    { path: 'plan', component: PlanComponent },
+    { path: 'admin-panel', component: AdminPanelComponent}
 ];
