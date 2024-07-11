@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RouteFacadeService {
   userRoutes: any = signal(0);
-  routePlaceList!: string[];
+  // routePlaceList!: string[];
 
   private getAllRoutesSubscription!: Subscription;
   private cancelRouteSubscription!: Subscription;
@@ -66,20 +66,20 @@ export class RouteFacadeService {
       });
   }
 
-  getRoutePlaceList(routeId: string) {
-    this.routeApi.getRoutePlaceList(routeId).subscribe({
-      next: (placeList: string[]) => {
-        console.log('places list');
-        console.log(placeList);
-        this.routePlaceList = placeList;
-        this.router.navigate(['/edit-route', routeId]);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-      complete: () => {
-        this.deletePlaceFromRouteSubscription?.unsubscribe();
-      },
-    });
-  }
+  // getRoutePlaceList(routeId: string) {
+  //   this.routeApi.getRoutePlaceList(routeId).subscribe({
+  //     next: (placeList: string[]) => {
+  //       console.log('places list');
+  //       console.log(placeList);
+  //       this.routePlaceList = placeList;
+  //       this.router.navigate(['/edit-route', routeId]);
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //     },
+  //     complete: () => {
+  //       this.deletePlaceFromRouteSubscription?.unsubscribe();
+  //     },
+  //   });
+  // }
 }

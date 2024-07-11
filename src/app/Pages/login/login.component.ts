@@ -67,7 +67,7 @@ export class LoginComponent {
   }
 
   onSignUp() {
-    if (this.loginForm.invalid) {
+    if (this.signUpForm.invalid) {
       alert("Please fill all the fields!");
       return;
     }

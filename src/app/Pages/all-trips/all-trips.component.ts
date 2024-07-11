@@ -10,10 +10,9 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, JsonPipe, MatDialogModule],
   templateUrl: './all-trips.component.html',
-  styleUrl: './all-trips.component.scss'
+  styleUrl: './all-trips.component.scss',
 })
 export class AllTripsComponent implements OnInit {
-
   routeFacadeService = inject(RouteFacadeService);
   dialog = inject(MatDialog);
 
@@ -31,10 +30,10 @@ export class AllTripsComponent implements OnInit {
   openPopup(tripId: string) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '250px',
-      data: {}
+      data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.routeFacadeService.cancelRoute(tripId).subscribe({
           next: (response: any) => {
@@ -44,14 +43,13 @@ export class AllTripsComponent implements OnInit {
           error: (error) => {
             console.log('Cancel route error', error);
             this.getRoutes();
-          }
+          },
         });
       }
     });
   }
 
   directToEdit(tripId: string) {
-    this.routeFacadeService.getRoutePlaceList(tripId);
+    this.router.navigate(['/edit-route', tripId]);
   }
-  
 }

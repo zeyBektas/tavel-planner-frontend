@@ -77,6 +77,10 @@ export class PlacesFacadeService {
     });
   }
 
+  // getPlaceById(placeId: string) {
+  //   return this.placesApi.getPlaceById(placeId);
+  // }
+
   saveTripFilter(tripFilter: any) {
     this.tripDetailState.saveTripFilter(tripFilter);
   }

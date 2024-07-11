@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PlacesFacadeService } from '../../../../façade/places-facade.service';
 import { Place, Places } from '../../../../models/response/places-response.model';
 import { CommonModule } from '@angular/common';
@@ -35,21 +35,27 @@ export class EditPlacesComponent {
   };
 
   totalPrice: number = 0;
+  
+  routeFacadeService = inject(RouteFacadeService);
 
-  constructor(private route: ActivatedRoute, private routeFacade: RouteFacadeService, private placesFacade: PlacesFacadeService) {}
+  constructor(private route: ActivatedRoute, private placesFacade: PlacesFacadeService, private routeFacade: RouteFacadeService) {}
 
   ngOnInit(): void {
-    this.getPlacesOfRoute();
     this.routeId = this.route.snapshot.paramMap.get('id')!;
-    console.log('Route ID:', this.routeId);
+    this.getPlacesOfRoute();
   }
 
   getPlacesOfRoute() {
-    this.selectedPlaces = this.placesFacade.getFilteredPlaces();
+    console.log('userRoutes');
+    console.log(this.routeFacade.userRoutes);
   }
 
   toggleSelection(place: Place) {
     place.isSelected = !place.isSelected;
+  }
+
+  onDeletePlace() {
+    
   }
 
 }

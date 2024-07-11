@@ -17,4 +17,8 @@ export class PlacesApiService {
   saveRoute(data: RouteRequest) {
     return this.api.post(`route/saveRoute`, data);
   }
+
+  getPlaceById(placeId: string) {
+    return this.api.get(`place/getPlace/${placeId}`);
+  }
 }
