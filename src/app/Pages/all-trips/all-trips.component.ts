@@ -35,8 +35,16 @@ export class AllTripsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.routeFacadeService.cancelRoute(tripId);
-        this.getRoutes();
+        this.routeFacadeService.cancelRoute(tripId).subscribe({
+          next: (response: any) => {
+            console.log('Cancel route response', response);
+            this.getRoutes();
+          },
+          error: (error) => {
+            console.log('Cancel route error', error);
+            this.getRoutes();
+          }
+        });
       }
     });
   }

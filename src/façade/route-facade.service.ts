@@ -17,33 +17,26 @@ export class RouteFacadeService {
   constructor(private routeApi: RouteApiService, private routeState: RouteStateService) { }
 
   getAllRoutes(userId: string) {
-    this.getAllRoutesSubscription = (this.routeApi.getAllRoutes(userId)).subscribe({
+    this.getAllRoutesSubscription = this.routeApi.getAllRoutes(userId).subscribe({
       next: (allRoutes: any) => {
         console.log(allRoutes);
         this.userRoutes.set(allRoutes);
         console.log(this.userRoutes());
-      },error: (error) => {
+      },
+      error: (error) => {
         console.log(error);
-      }, complete: () => {
+      },
+      complete: () => {
         this.getAllRoutesSubscription?.unsubscribe();
       }
-    })
+    });
   }
 
   cancelRoute(routeId: string) {
-    this.cancelRouteSubscription = this.routeApi.cancelRoute(routeId).subscribe({
-      next: (response: any) => {
-        console.log('cancel route response');
-        console.log(response);
-      },error: (error) => {
-        console.log(error);
-      }, complete: () => {
-        this.getAllRoutesSubscription?.unsubscribe();
-      }
-    })
+    return this.routeApi.cancelRoute(routeId);
   }
 
   getAllRoutesFromState() {
-    this.routeState.getAllRoutes()
+    this.routeState.getAllRoutes();
   }
-} 
+}
