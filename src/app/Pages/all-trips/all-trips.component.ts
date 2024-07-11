@@ -3,6 +3,7 @@ import { RouteFacadeService } from '../../../façade/route-facade.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from '../../Layouts/modal/modal.component';
 import { CommonModule, JsonPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-trips',
@@ -16,7 +17,7 @@ export class AllTripsComponent implements OnInit {
   routeFacadeService = inject(RouteFacadeService);
   dialog = inject(MatDialog);
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.getRoutes();
@@ -48,4 +49,9 @@ export class AllTripsComponent implements OnInit {
       }
     });
   }
+
+  directToEdit(tripId: string) {
+    this.routeFacadeService.getRoutePlaceList(tripId);
+  }
+  
 }

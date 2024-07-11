@@ -12,8 +12,8 @@
             <div [ngClass]="{'active': trip.statusFlag, 'not-active': !trip.statusFlag}" class="trip-status">
               <b>{{ trip.statusFlag ? 'Active' : 'Not Active' }}</b>
             </div>
-          <img class="card-img float-right" src="https://img.icons8.com/?size=100&id=49&format=png&color=000000" alt="edit">
-          <img (click)="openPopup(trip.id)" class="card-img float-right" src="https://img.icons8.com/?size=100&id=67884&format=png&color=000000" alt="delete">
+            <img (click)="directToEdit(trip.id)" class="card-img float-right" src="https://img.icons8.com/?size=100&id=49&format=png&color=000000" alt="edit">
+            <img (click)="openPopup(trip.id)" class="card-img float-right" src="https://img.icons8.com/?size=100&id=67884&format=png&color=000000" alt="delete">
         </div>
     </div>
     }
