@@ -96,7 +96,7 @@ export class AdminPanelComponent {
         this.adminForm.reset();
         setTimeout(() => {
           this.successMessage = null;
-        }, 2000); // Hide the message after 2 seconds
+        }, 2000);
       }).catch((error) => {
         console.error('Error saving place:', error);
         alert('An error occurred while saving the place.');

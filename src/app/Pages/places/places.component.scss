@@ -1,3 +1,15 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.card {
+  img {
+    height: 170px;
+  }
+}
+
 .place-type {
   background-color: #ffefdc;
 }
@@ -5,12 +17,5 @@
 .selected {
   transition: 1s;
   background-color: #fb812a;
-}
-
-.cards{
-    .card {
-        img {
-            height: 170px;
-        }
-    }
+  color: white;
 }
