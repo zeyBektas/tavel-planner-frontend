@@ -77,6 +77,27 @@ export class PlacesFacadeService {
     });
   }
 
+  async savePlace(place: any): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      (await this.placesApi.savePlace(place)).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          resolve();
+        },
+        error: (error) => {
+          console.log(error);
+          reject(error);
+        },
+        complete: () => {},
+      });
+    });
+  }
+  
+
+  // getPlaceById(placeId: string) {
+  //   return this.placesApi.getPlaceById(placeId);
+  // }
+
   saveTripFilter(tripFilter: any) {
     this.tripDetailState.saveTripFilter(tripFilter);
   }

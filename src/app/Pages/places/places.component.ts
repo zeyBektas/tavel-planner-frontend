@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Place, Places } from '../../../models/response/places-response.model';
 import { PlacesFacadeService } from '../../../façade/places-facade.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-places',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCheckboxModule],
   templateUrl: './places.component.html',
   styleUrls: ['./places.component.scss'],
 })

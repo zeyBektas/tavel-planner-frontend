@@ -3,20 +3,20 @@ import { RouteFacadeService } from '../../../façade/route-facade.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from '../../Layouts/modal/modal.component';
 import { CommonModule, JsonPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-trips',
   standalone: true,
   imports: [CommonModule, JsonPipe, MatDialogModule],
   templateUrl: './all-trips.component.html',
-  styleUrl: './all-trips.component.scss'
+  styleUrl: './all-trips.component.scss',
 })
 export class AllTripsComponent implements OnInit {
-
   routeFacadeService = inject(RouteFacadeService);
   dialog = inject(MatDialog);
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.getRoutes();
@@ -30,10 +30,10 @@ export class AllTripsComponent implements OnInit {
   openPopup(tripId: string) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '250px',
-      data: {}
+      data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.routeFacadeService.cancelRoute(tripId).subscribe({
           next: (response: any) => {
@@ -43,9 +43,13 @@ export class AllTripsComponent implements OnInit {
           error: (error) => {
             console.log('Cancel route error', error);
             this.getRoutes();
-          }
+          },
         });
       }
     });
+  }
+
+  directToEdit(tripId: string) {
+    this.router.navigate(['/edit-route', tripId]);
   }
 }

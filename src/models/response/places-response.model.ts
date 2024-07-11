@@ -11,6 +11,7 @@ export interface Place {
   price: number;
   type: string;
   tag: string[];
+  popularityRate?: number;
   isVegan?: boolean;
   isSelected?: boolean;
 }
