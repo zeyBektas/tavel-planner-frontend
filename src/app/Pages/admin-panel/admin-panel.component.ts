@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PlacesFacadeService } from '../../../façade/places-facade.service';
+import { PlaceRequest } from '../../../models/request/place-request.model';
 
 @Component({
   selector: 'app-admin-panel',
@@ -25,11 +27,12 @@ export class AdminPanelComponent {
 		type: new FormControl(null, Validators.required),
 		tag: new FormControl('', Validators.required),
 		isVegan: new FormControl('', Validators.required),
+    popularityRate: new FormControl(0),
 	});
   
   successMessage: string | null = null;
 
-  constructor() { }
+  constructor(private placesFacade: PlacesFacadeService) { }
 
   ngOnInit(): void {
     
