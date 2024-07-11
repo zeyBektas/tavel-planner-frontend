@@ -1,12 +1,11 @@
-
 <form class="trip-planner-container" [formGroup]="tripPlannerForm" (submit)="onSubmit()">
-    <h1>Plan Your Next Trip</h1>
-    <div class="select-container">
+    <h1 class="fs-2 my-4">Plan Your Next Trip</h1>
+    <div class="select-container my-3">
         <select class="form-select" aria-label="Default select example" formControlName="from" name="from">
             <option value="" disabled selected>From</option>
             <option value="İstanbul">İstanbul</option>
             <option value="Ankara">Ankara</option>
-            <option value="Eskişehir">Eskişehir</option>
+            <option value="İzmir">İzmir</option>
         </select>
         <select class="form-select" aria-label="Default select example" formControlName="to" name="to">
             <option value="" disabled selected>To</option>
@@ -15,15 +14,17 @@
             <option value="Ankara">Ankara</option>
         </select>
     </div>
-    <div>
+    <hr>
+    <div class="my-3">
         <p>Select Dates:</p>
         <div class="date-container">
             <input class="form-select" type="date" formControlName="startDate" [min]="minDate" (change)="onStartDateChange()">
             <input class="form-select" type="date" formControlName="endDate" [min]="endDateMin" [max]="endDateMax">
         </div>
     </div>
+    <hr>
     <div>
-        <div class="row">
+        <div class="row my-3">
             <p>Select the Kind of Activities You Want To Do:</p>
             <div class="col-md-4" *ngFor="let category of categories;">
                 <div class="card" [ngClass]="{'selected': category.selected}" (click)="toggleSelection(category)">
@@ -35,14 +36,16 @@
             </div>
         </div>
     </div>
+    <hr>
     <div class="form-group">
-        <label for="exampleInputEmail1">How Many People are Going:</label>
+        <label for="exampleInputEmail1" class="my-2">How Many People are Going:</label>
         <input type="number" class="form-control" formControlName="numPeople" min="1" max="200">
     </div>
     <div>
-        <div *ngFor="let people of people.controls; index as i" formArrayName="people" class="card">
+        <div *ngFor="let people of people.controls; index as i" formArrayName="people" class="card orange-background">
             <div class="card-body">
                 <div class="container my-4">
+                    <div class="fs-5 my-3">Person {{ i + 1 }}</div>
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="input-fields" [formGroupName]="i">

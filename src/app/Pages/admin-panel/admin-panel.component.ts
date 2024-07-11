@@ -26,6 +26,8 @@ export class AdminPanelComponent {
 		tag: new FormControl('', Validators.required),
 		isVegan: new FormControl('', Validators.required),
 	});
+  
+  successMessage: string | null = null;
 
   constructor() { }
 
@@ -62,14 +64,38 @@ export class AdminPanelComponent {
 		}
 	}
 
-	onSubmit() {
-		console.log(this.adminForm)
-		if (this.adminForm.valid) {
-		  const formData = this.adminForm.value;
-		  console.log('Form data:', formData);
-		  // Perform your action here, e.g., send data to the server or save locally.
-		} else {
-		  alert("Please fill all the fields!")
-		}
-	  }
+  onSubmit() {
+    if (this.adminForm.valid) {
+      const formData = this.adminForm.value;
+      console.log('Form data:', formData);
+      const e: PlaceRequest = {
+        place_name: formData.place_name!,
+        latitude: formData.latitude!,
+        longitude: formData.longitude!,
+        imageUrl: formData.imageUrl!,
+        country: formData.country!,
+        city: formData.city!,
+        district: formData.district!,
+        duration: formData.duration!,
+        price: formData.price!,
+        type: formData.type!,
+        tag: ['POPULAR'],
+        popularityRate: formData.popularityRate!,
+        isVegan: formData.isVegan == "true" ? true : false,
+      };
+      this.placesFacade.savePlace(e).then(() => {
+        this.modalService.dismissAll();
+        this.successMessage = 'Place successfully added!';
+        this.adminForm.reset();
+        setTimeout(() => {
+          this.successMessage = null;
+        }, 2000);
+      }).catch((error) => {
+        console.error('Error saving place:', error);
+        alert('An error occurred while saving the place.');
+      });
+    } else {
+      alert('Please fill all the fields!');
+    }
+  }
 }

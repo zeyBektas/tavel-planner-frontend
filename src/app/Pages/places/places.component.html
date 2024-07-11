@@ -2,7 +2,7 @@
   <div class="places">
     <div class="place-category">
       <h2 class="place-type px-4 py-2 border display-6">Hotels</h2>
-      <div class="cards d-flex">
+      <div class="cards">
         <div
           class="card mx-3 my-3"
           style="width: 18rem"
@@ -25,11 +25,16 @@
       </div>
     </div>
     <div class="place-category">
-      <h2 class="place-type px-4 py-2 border display-6">Restaurants
-        
-  <mat-checkbox class="example-margin">Check me!</mat-checkbox>
+      <h2 class="place-type px-4 py-2 border display-6">
+        Restaurants
+        <mat-checkbox
+          class="example-margin px-3"
+          [(ngModel)]="veganOnly"
+          (change)="onVeganFilterChange()"
+          >Vegan Restaurants</mat-checkbox
+        >
       </h2>
-      <div class="cards d-flex">
+      <div class="cards">
         <div
           class="card mx-3 my-3"
           style="width: 18rem"
@@ -49,7 +54,7 @@
     </div>
     <div class="place-category">
       <h2 class="place-type px-4 py-2 border display-6">Museum</h2>
-      <div class="cards d-flex">
+      <div class="cards">
         <div
           class="card mx-3 my-3"
           style="width: 18rem"
@@ -69,7 +74,7 @@
     </div>
     <div class="place-category">
       <h2 class="place-type px-4 py-2 border display-6">Beach</h2>
-      <div class="cards d-flex">
+      <div class="cards">
         <div
           class="card mx-3 my-3"
           style="width: 18rem"
@@ -89,7 +94,7 @@
     </div>
     <div class="place-category">
       <h2 class="place-type px-4 py-2 border display-6">Trekking</h2>
-      <div class="cards d-flex">
+      <div class="cards">
         <div
           class="card mx-3 my-3"
           style="width: 18rem"
@@ -110,7 +115,7 @@
   </div>
   <div class="place-category">
     <h2 class="place-type px-4 py-2 border display-6">Entertainment</h2>
-    <div class="cards d-flex">
+    <div class="cards">
       <div
         class="card mx-3 my-3"
         style="width: 18rem"
