@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { PlacesFacadeService } from '../../../../façade/places-facade.service';
-import { Place, Places } from '../../../../models/response/places-response.model';
+import { PlacesFacadeService } from '../../../façade/places-facade.service';
+import { Place, Places } from '../../../models/response/places-response.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { RouteFacadeService } from '../../../../façade/route-facade.service';
+import { RouteFacadeService } from '../../../façade/route-facade.service';
 
 @Component({
   selector: 'app-edit-places',

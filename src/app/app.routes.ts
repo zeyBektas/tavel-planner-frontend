@@ -9,7 +9,7 @@ import { PaymentComponent } from './Pages/payment/payment.component';
 import { ContactComponent } from './Pages/contact/contact-page/contact.component';
 import { PlanComponent } from './Pages/plan/plan.component';
 import { AdminPanelComponent } from './Pages/admin-panel/admin-panel.component';
-import { EditPlacesComponent } from './Pages/all-trips/edit-places/edit-places.component';
+import { EditPlacesComponent } from './Pages/edit-places/edit-places.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
