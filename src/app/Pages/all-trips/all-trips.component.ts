@@ -36,6 +36,7 @@ export class AllTripsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.routeFacadeService.cancelRoute(tripId);
+        this.getRoutes();
       }
     });
   }
