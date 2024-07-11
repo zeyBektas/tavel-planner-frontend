@@ -7,7 +7,6 @@
             {{ trip.departure }} - {{ trip.destination }}</b>
             <div class="trip-dates">
               From: {{ trip.startDate }}   To: {{ trip.endDate }}
-              {{ trip.id }}
             </div>
 
             <div [ngClass]="{'active': trip.statusFlag, 'not-active': !trip.statusFlag}" class="trip-status">
